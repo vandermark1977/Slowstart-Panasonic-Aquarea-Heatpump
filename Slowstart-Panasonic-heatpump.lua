@@ -10,6 +10,7 @@
 -- Line 33: target_temp sensor IDX number to be filled in. (Standard: Main_Target_Temp)
 -- Line 34: outlet_temp sensor IDX number to be filled in.  (Standard: Main_Outlet_Temp)
 -- Line 35: CompressorFreq sensor IDX number to be filled in. (Standard: Compressor_Freq)
+-- Line 71: Sets the maximum Shift. Adjust to your situation. Some need -3, others need -5.
 -- IDX numbers can easilly be found by tapping the "hamburger menu button" next to the "tabs" of the scripts (top left corner) and searching (Ctrl + F) for the text behind "standard:" between the brackets.
 -- HIT "ON" on the top left corner and hit "SAVE" on the top right corner and wait for a restart/defrost
 return {
