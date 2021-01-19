@@ -1,4 +1,4 @@
--- Script ot manage slow an efficient startup after (for example) defrost.
+-- Script to manage slow an efficient startup after (for example) defrost.
 -- Script is based on Domoticz in combination with the Domoticz plugin (https://github.com/MarFanNL/HeishamonMQTT/tree/main)
 -- Go to: <Settings> <More Options> <Events>
 -- Click <+> and add new script >> DZVents >> All
