@@ -66,7 +66,7 @@ return {
             correction = 0
         end
         
-        if correction < -4 then correction = -4 end
+        if correction < -5 then correction = -5 end
         if correction > 0 then correction = 0 end
         
         if heatshift.setPoint == correction then
