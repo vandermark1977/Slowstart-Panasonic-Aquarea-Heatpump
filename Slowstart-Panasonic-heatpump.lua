@@ -52,11 +52,13 @@ return {
         elseif(domoticz.data.state == 3) then
             domoticz.log('State: compressor relaxing', domoticz.LOG_INFO)
             correction = outlet_temp.temperature - target_temp.temperature + heatshift.setPoint -1
-            if((outlet_temp.temperature - target_temp.temperature) >= 1) and (tonumber(CompressorFreq.sValue) < 23) then domoticz.data.state = 4
+            if((outlet_temp.temperature - target_temp.temperature) >= 1) and (tonumber(CompressorFreq.sValue) < 23) then
+                domoticz.data.state = 4
             end
         elseif(domoticz.data.state == 4) then
             domoticz.log('State: continuous operation', domoticz.LOG_INFO)
-            if((outlet_temp.temperature - target_temp.temperature) >= 0) and (heatshift.lastUpdate.minutesAgo > 1) then correction = heatshift.setPoint + 1
+            if((outlet_temp.temperature - target_temp.temperature) >= 0) and (heatshift.lastUpdate.minutesAgo > 1) then
+                correction = heatshift.setPoint + 1
             else
                 correction = heatshift.setPoint
             end
