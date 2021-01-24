@@ -58,9 +58,11 @@ return {
         elseif(domoticz.data.state == 4) then
             domoticz.log('State: continuous operation', domoticz.LOG_INFO)
             if((outlet_temp.temperature - target_temp.temperature) >= 0) and (heatshift.lastUpdate.minutesAgo > 1) then
+                domoticz.log('Continu met voorwaarde Shift+1 voldaan', domoticz.LOG_INFO)
                 correction = heatshift.setPoint + 1
             else
                 correction = heatshift.setPoint
+                domoticz.log('Continu zonder aanpassing Shift', domoticz.LOG_INFO)
             end
         else
             domoticz.log('State: undefined', domoticz.LOG_INFO)
