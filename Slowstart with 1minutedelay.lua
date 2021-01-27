@@ -1,6 +1,5 @@
 -- Script to manage slow an efficient startup after (for example) defrost.
 -- Script is based on Domoticz in combination with the Domoticz plugin (https://github.com/MarFanNL/HeishamonMQTT/tree/main)
---
 -- Line 31: heatshift sensor IDX number to be filled in. (standard: Z1_Heat_Request_Temp)
 -- Line 32: target_temp sensor IDX number to be filled in. (Standard: Main_Target_Temp)
 -- Line 33: outlet_temp sensor IDX number to be filled in.  (Standard: Main_Outlet_Temp)
