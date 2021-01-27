@@ -18,11 +18,11 @@ return {
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
-        local heatshift = domoticz.devices(82)
-        local target_temp = domoticz.devices(66)
-        local outlet_temp = domoticz.devices(65)
-        local CompressorFreq = domoticz.devices(49)
-        local Toggle = domoticz.devices(148)
+        local heatshift = domoticz.devices(82)  --Fill in IDX of the Z1_Heat_Request_Temp
+        local target_temp = domoticz.devices(66) --Fill in IDX of Main_Target_Temp
+        local outlet_temp = domoticz.devices(65) -- Fill in IDX of Main_Outlet_Temp
+        local CompressorFreq = domoticz.devices(49) -- Fill in IDX of Compressor_Freq
+        local Toggle = domoticz.devices(148) -- Fill in IDX of virtual On/Off switch you created from dummy sensor
         local Ta_target = domoticz.devices(66).temperature
         local Taanvoer = domoticz.devices(65).temperature
 
