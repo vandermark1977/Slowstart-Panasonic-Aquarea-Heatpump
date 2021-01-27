@@ -1,13 +1,3 @@
--- Script to manage slow an efficient startup after (for example) defrost.
--- Script is based on Domoticz in combination with the Domoticz plugin (https://github.com/MarFanNL/HeishamonMQTT/tree/main)
--- Line 31: heatshift sensor IDX number to be filled in. (standard: Z1_Heat_Request_Temp)
--- Line 32: target_temp sensor IDX number to be filled in. (Standard: Main_Target_Temp)
--- Line 33: outlet_temp sensor IDX number to be filled in.  (Standard: Main_Outlet_Temp)
--- Line 34: CompressorFreq sensor IDX number to be filled in. (Standard: Compressor_Freq)
--- Line 35: Simple On/Off Switch IDX numer to be filled in. Created from new Dummy hardware --> create virtule device --> On/Off switch
--- Line 69: Sets the maximum Shift. Adjust to your situation. Some need -3, others need -5.
--- IDX numbers can easilly be found by tapping the "hamburger menu button" next to the "tabs" of the scripts (top left corner) and searching (Ctrl + F) for the text behind "standard:" between the brackets.
--- HIT "ON" on the top left corner and hit "SAVE" on the top right corner and wait for a restart/defrost
 return {
     on = {
         devices = { 
@@ -33,6 +23,8 @@ return {
         local outlet_temp = domoticz.devices(65)
         local CompressorFreq = domoticz.devices(49)
         local Toggle = domoticz.devices(148)
+        local Ta_target = domoticz.devices(66).temperature
+        local Taanvoer = domoticz.devices(65).temperature
 
         if(CompressorFreq.sValue == "0") then
             domoticz.log('State: compressor off', domoticz.LOG_INFO)
@@ -42,23 +34,23 @@ return {
             domoticz.log('State: compressor startup', domoticz.LOG_INFO)
             domoticz.data.state = 2
             correction = outlet_temp.temperature - target_temp.temperature + heatshift.setPoint -1
-            if(tonumber(CompressorFreq.sValue) >25) and (Toggle.lastUpdate.minutesAgo >= 1) then
+            if(tonumber(CompressorFreq.sValue) >24) then
                 domoticz.data.state = 3
             end
         elseif(domoticz.data.state == 3) then
             domoticz.log('State: compressor relaxing', domoticz.LOG_INFO)
             correction = outlet_temp.temperature - target_temp.temperature + heatshift.setPoint -1
-            if((outlet_temp.temperature - target_temp.temperature) >= 1) and (tonumber(CompressorFreq.sValue) < 26) and (Toggle.lastUpdate.minutesAgo >= 1) then
+            if((outlet_temp.temperature - target_temp.temperature) >= 1) and (tonumber(CompressorFreq.sValue) < 25) then
                 domoticz.data.state = 4
             end
         elseif(domoticz.data.state == 4) then
-            domoticz.log('State: continuous operation', domoticz.LOG_INFO)
+            domoticz.log('State: continu status', domoticz.LOG_INFO)
             if((outlet_temp.temperature - target_temp.temperature) >= 0) and (Toggle.lastUpdate.minutesAgo >= 1) then
-                domoticz.log('Continu met voorwaarde Shift+1 voldaan', domoticz.LOG_INFO)
                 correction = heatshift.setPoint + 1
+                domoticz.log('Continu met Correctie is Shift+1. TaDoel is: '.. Ta_target .. ' & Ta is: '.. Taanvoer.. '. Correctie is ' .. tostring(correction), domoticz.LOG_INFO)
             else
                 correction = heatshift.setPoint
-                domoticz.log('Continu zonder aanpassing Shift', domoticz.LOG_INFO)
+                domoticz.log('Continu zonder aanpassing: TaDoel is: '.. Ta_target .. ' & Ta is: '.. Taanvoer, domoticz.LOG_INFO)
             end
         else
             domoticz.log('State: undefined', domoticz.LOG_INFO)
@@ -70,11 +62,18 @@ return {
         if correction > 0 then correction = 0 end
         
         if heatshift.setPoint == correction then
-            domoticz.log('No correction', domoticz.LOG_INFO)
-        else
-            domoticz.log('Correction set to ' .. tostring(correction), domoticz.LOG_INFO)
+            domoticz.log('Geen correctie: Shift is al gelijk aan correctie ('.. tostring(correction).. ')', domoticz.LOG_INFO) end
+        
+        if (heatshift.setPoint ~= correction) and (Toggle.lastUpdate.minutesAgo >= 1) then
+            domoticz.log('Correctie nodig en is gezet op: ' .. tostring(correction), domoticz.LOG_INFO)
             heatshift.updateSetPoint(correction)
-            Toggle.toggleSwitch()
+            Toggle.toggleSwitch() end
+        
+        if (heatshift.setPoint ~= correction) and (Toggle.lastUpdate.minutesAgo < 1) then
+            domoticz.log('Correctie nodig maar niet uitgevoerd, laatste correctie korter dan minuut geleden ', domoticz.LOG_INFO)
+        
+        else
+            domoticz.log('Einde script. Toggle laatst getriggerd: ' .. Toggle.lastUpdate.minutesAgo..' minuten geleden', domoticz.LOG_INFO)
         end
     end
 }
