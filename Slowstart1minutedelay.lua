@@ -18,13 +18,11 @@ return {
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
-        local heatshift = domoticz.devices(82)  --Fill in IDX of the Z1_Heat_Request_Temp
-        local target_temp = domoticz.devices(66) --Fill in IDX of Main_Target_Temp
-        local outlet_temp = domoticz.devices(65) -- Fill in IDX of Main_Outlet_Temp
-        local CompressorFreq = domoticz.devices(49) -- Fill in IDX of Compressor_Freq
-        local Toggle = domoticz.devices(148) -- Fill in IDX of virtual On/Off switch you created from dummy sensor
-        local Ta_target = domoticz.devices(66).temperature
-        local Taanvoer = domoticz.devices(65).temperature
+        local heatshift = domoticz.devices(82)
+        local target_temp = domoticz.devices(66)
+        local outlet_temp = domoticz.devices(65)
+        local CompressorFreq = domoticz.devices(49)
+        local Toggle = domoticz.devices(148)
 
         if(CompressorFreq.sValue == "0") then
             domoticz.log('State: compressor off', domoticz.LOG_INFO)
@@ -47,10 +45,10 @@ return {
             domoticz.log('State: continu status', domoticz.LOG_INFO)
             if((outlet_temp.temperature - target_temp.temperature) >= 0) and (Toggle.lastUpdate.minutesAgo >= 1) then
                 correction = heatshift.setPoint + 1
-                domoticz.log('Continu met Correctie is Shift+1. TaDoel is: '.. Ta_target .. ' & Ta is: '.. Taanvoer.. '. Correctie is ' .. tostring(correction), domoticz.LOG_INFO)
+                domoticz.log('Continu met Correctie is Shift+1. TaDoel is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature.. '. Correctie is ' .. tostring(correction), domoticz.LOG_INFO)
             else
                 correction = heatshift.setPoint
-                domoticz.log('Continu zonder aanpassing: TaDoel is: '.. Ta_target .. ' & Ta is: '.. Taanvoer, domoticz.LOG_INFO)
+                domoticz.log('Continu zonder aanpassing: TaDoel is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature, domoticz.LOG_INFO)
             end
         else
             domoticz.log('State: undefined', domoticz.LOG_INFO)
