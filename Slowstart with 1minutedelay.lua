@@ -4,7 +4,7 @@
 -- Line 32: target_temp sensor IDX number to be filled in. (Standard: Main_Target_Temp)
 -- Line 33: outlet_temp sensor IDX number to be filled in.  (Standard: Main_Outlet_Temp)
 -- Line 34: CompressorFreq sensor IDX number to be filled in. (Standard: Compressor_Freq)
--- Line 35: Simple On/Off Switch created from new Dummy hardware --> create virtule device --> On/Off switch
+-- Line 35: Simple On/Off Switch IDX numer to be filled in. Created from new Dummy hardware --> create virtule device --> On/Off switch
 -- Line 69: Sets the maximum Shift. Adjust to your situation. Some need -3, others need -5.
 -- IDX numbers can easilly be found by tapping the "hamburger menu button" next to the "tabs" of the scripts (top left corner) and searching (Ctrl + F) for the text behind "standard:" between the brackets.
 -- HIT "ON" on the top left corner and hit "SAVE" on the top right corner and wait for a restart/defrost
