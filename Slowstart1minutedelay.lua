@@ -43,9 +43,9 @@ return {
             end
         elseif(domoticz.data.state == 4) then
             domoticz.log('State: continu status', domoticz.LOG_INFO)
-            if((outlet_temp.temperature - target_temp.temperature) >= 0) and (Toggle.lastUpdate.minutesAgo >= 1) then
+            if((outlet_temp.temperature - target_temp.temperature) >= 0) then
                 correction = heatshift.setPoint + 1
-                domoticz.log('Continu met Correctie is Shift+1. TaDoel is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature.. '. Correctie is ' .. tostring(correction), domoticz.LOG_INFO)
+                domoticz.log('TaDoel is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature.. ': Continu met Correctie is Shift+1: (' .. tostring(correction)..')', domoticz.LOG_INFO)
             else
                 correction = heatshift.setPoint
                 domoticz.log('Continu zonder aanpassing: TaDoel is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature, domoticz.LOG_INFO)
