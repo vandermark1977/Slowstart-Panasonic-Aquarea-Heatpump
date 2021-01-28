@@ -1,5 +1,5 @@
 # Slowstart-Panasonic-Aqarea-Heatpump
-DZvents Domoticz Script to manage the Panasonic heatpump to a slow and efficient startup after (for example) defrost. 
+DZvents Domoticz Script to manage the Panasonic heatpump to a slow and efficient startup after restart and/or defrost.
 Script works in combination with the Domoticz plugin (https://github.com/MarFanNL/HeishamonMQTT/tree/main)
 The script is triggered by compressor frequency change and sets a Shift in Ta so the heatpump doesnot go @ high power after a restart or defrost.
 
