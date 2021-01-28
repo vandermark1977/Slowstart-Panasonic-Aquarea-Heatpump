@@ -1,7 +1,7 @@
 return {
     on = {
         devices = { 
-            49, --Pana Compressor_Freq
+            49, --Pana [Compressor_Freq]
         }
     },
     data = {
@@ -18,10 +18,10 @@ return {
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
-        local heatshift = domoticz.devices(82)      -- Fill in IDX of the heatpump [Z1_Heat_Request_Temp]
-        local target_temp = domoticz.devices(66)    -- Fill in IDX of the heatpump [Main_Target_Temp]
-        local outlet_temp = domoticz.devices(65)    -- Fill in IDX of the heatpump [Main_Outlet_Temp]
-        local CompressorFreq = domoticz.devices(49) -- Fill in IDX of the heatpump [Compressor_Freq]
+        local heatshift = domoticz.devices(82)      -- Fill in IDX of the Pana [Z1_Heat_Request_Temp]
+        local target_temp = domoticz.devices(66)    -- Fill in IDX of the Pana [Main_Target_Temp]
+        local outlet_temp = domoticz.devices(65)    -- Fill in IDX of the Pana [Main_Outlet_Temp]
+        local CompressorFreq = domoticz.devices(49) -- Fill in IDX of the Pana [Compressor_Freq]
         local Toggle = domoticz.devices(148)        -- Fill in IDX of On/Off switch you need to create from a dummy device. This on/of switch is only used for this script
 
         if(CompressorFreq.sValue == "0") then
