@@ -61,8 +61,11 @@ return {
             correction = 0
         end
         
-        if correction < -5 then correction = -5 end
-        if correction > ShiftManual.setPoint then correction = ShiftManual.setPoint end
+        if correction < -5 then
+            correction = -5 end
+        if correction > ShiftManual.setPoint then 
+            domoticz.log('Correctie ('.. tostring(correction)..') groter dan ShiftManual (' .. ShiftManual.setPoint..'): Correctie gezet op: ' .. ShiftManual.setPoint, domoticz.LOG_INFO)
+            correction = ShiftManual.setPoint end
         
         if heatshift.setPoint == correction then
             domoticz.log('Geen correctie: Shift is al gelijk aan correctie ('.. tostring(correction).. ')', domoticz.LOG_INFO) end
