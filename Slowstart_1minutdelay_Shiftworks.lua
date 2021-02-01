@@ -1,3 +1,7 @@
+--  BETA: Slowstart script with adjustment to have Shift control of the target temperature. 
+--  Make a Temperature device (thermostat with a setpoint) and fill the IDX in line 30.
+--  Use this device to make adjustments to the Shift of the Target temperature.
+
 return {
     on = {
         devices = { 
