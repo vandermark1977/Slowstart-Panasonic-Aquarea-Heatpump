@@ -37,13 +37,13 @@ return {
             domoticz.log('State: compressor startup', domoticz.LOG_INFO)
             domoticz.data.state = 2
             correction = outlet_temp.temperature - target_temp.temperature + heatshift.setPoint -1
-            if(tonumber(CompressorFreq.sValue) >24) then
+            if(tonumber(CompressorFreq.sValue) >= 26) then
                 domoticz.data.state = 3
             end
         elseif(domoticz.data.state == 3) then
             domoticz.log('State: compressor relaxing', domoticz.LOG_INFO)
             correction = outlet_temp.temperature - target_temp.temperature + heatshift.setPoint -1
-            if((outlet_temp.temperature - target_temp.temperature) >= 1) and (tonumber(CompressorFreq.sValue) < 25) then
+            if((outlet_temp.temperature - target_temp.temperature) >= 1) and (tonumber(CompressorFreq.sValue) < 26) then
                 domoticz.data.state = 4
             end
         elseif(domoticz.data.state == 4) then
