@@ -39,18 +39,12 @@ return {
             domoticz.data.treshold = 25 end
         if (target_temp.temperature == 27) then
             domoticz.data.treshold = 26 end
-        if (target_temp.temperature == 28) then
+        if (target_temp.temperature == 28 or target_temp.temperature == 29) then
             domoticz.data.treshold = 27 end
-        if (target_temp.temperature == 29) then
+        if (target_temp.temperature == 30 or target_temp.temperature == 31) then
             domoticz.data.treshold = 27 end
-        if (target_temp.temperature == 30) then
-            domoticz.data.treshold = 28 end
-        if (target_temp.temperature == 31) then
-            domoticz.data.treshold = 28 end
-        if (target_temp.temperature == 32) then
-            domoticz.data.treshold = 28 end
-        if (target_temp.temperature == 33) then
-            domoticz.data.treshold = 28 end
+        if (target_temp.temperature == 32 or target_temp.temperature == 33) then
+            domoticz.data.treshold = 27 end
 ---------------------------
 -- Slowstart starts here --
 ---------------------------
