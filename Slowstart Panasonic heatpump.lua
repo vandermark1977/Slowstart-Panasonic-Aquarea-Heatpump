@@ -20,7 +20,7 @@ return {
         treshold = {initial = 20}
     },
     logging = {
-        level = domoticz.LOG_DEBUG, -- change to LOG_ERROR when OK - was LOG_DEBUG
+        level = domoticz.LOG_DEBUG, -- change to LOG_ERROR when OK
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
@@ -108,7 +108,7 @@ return {
 -- Final Log                         --
 ---------------------------------------
         else
-            domoticz.log('End script. Toggle last triggerd: ' .. Toggle.lastUpdate.minutesAgo..' minutes ago. Treshold is: '..domoticz.data.treshold, domoticz.LOG_INFO)
+            domoticz.log('End script. Toggle last triggered: ' .. Toggle.lastUpdate.minutesAgo..' minutes ago. Treshold is: '..domoticz.data.treshold, domoticz.LOG_INFO)
         end
     end
 }
