@@ -7,9 +7,9 @@ The script is triggered by the compressor frequency. Normally after a restart or
 This is especially usefull in situations where 'your heating system' is slow and your house is well isolated. My house only has floorheating and is well isolated. The floorheating is a slow system. It is okay when the heatpump takes longer time to reach the Ta-target. Make your own judgement if this is usefull in your situation.
 
 ## Definitions & abbreviations
-* T-Shift: Temperature shift in the Outlet Water Temperature from the heatpump.
-* Ta: Outlet Water Temperature
-* Ta-target: Target Outlet Water Temperature
+* T-Shift:    Temperature shift in the Outlet Water Temperature from the heatpump.
+* Ta:         Outlet Water Temperature
+* Ta-target:  Target Outlet Water Temperature
 
 ## Prerequisites
 1. Script works in combination with the [Domoticz plugin](https://github.com/MarFanNL/HeishamonMQTT/tree/main) and the [heishamon control board](https://www.tindie.com/stores/thehognl/)
