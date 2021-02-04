@@ -1,4 +1,4 @@
-# Slowstart-Panasonic-Aqarea-Heatpump
+# Slowstart-Panasonic-Aquarea-Heatpump
 DZvents Domoticz Script to manage the Panasonic (monobloc) heatpump to a slow and efficient startup after restart and/or defrost.
 
 ## What does the script do?
