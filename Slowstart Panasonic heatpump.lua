@@ -30,11 +30,11 @@ return {
         local CompressorFreq = domoticz.devices(49) -- IDX of the Pana [Compressor_Freq]
         local Toggle = domoticz.devices(148)        -- IDX of On/Off switch you need to create from a dummy device. This on/of switch is only used for this script
         local ShiftManual = domoticz.devices(149)   -- IDX of Your Manual TaShift [devicetype: thermostat|setpoint]
-----------------------------------------------
--- Determine treshold for compressofrequency--
--- To set change from state 3 --> 4         --
--- Adjust these to your own situation!!     --
-----------------------------------------------
+-------------------------------------------------
+-- Determine treshold for compressor frequency --
+-- To set change from state 3 --> 4            --
+-- Adjust these to your own situation!!        --
+-------------------------------------------------
         if (target_temp.temperature == 26) then
             domoticz.data.treshold = 25 end
         if (target_temp.temperature == 27) then
