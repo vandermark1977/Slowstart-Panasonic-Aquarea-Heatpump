@@ -1,4 +1,4 @@
---  BETA: Slowstart script with adjustment to have Shift control of the target water outlet temperature. 
+--  Slowstart script with adjustment to have Shift control of the target water outlet temperature. 
 --  Make a Temperature device (thermostat with a setpoint) and fill the IDX in line 32.
 --  Use this device to make adjustments to the Shift of the Target temperature.
 
