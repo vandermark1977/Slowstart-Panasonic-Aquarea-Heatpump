@@ -27,4 +27,4 @@ In the process 4 'states' are defined by the script:
 The steps from state 2 to state 3 and after that to to 4 are also determined by a treshold in the compressor frequency which is influenced by the Ta-target. See lines 33-47 in the script. It is necessay that you adjust these settings, based on your own situations and regular compressor frequencies!
 
 Below you can see a graph of a startup after 6 hours of Off-state. The purple blocks visualize the dynamic T-shifts the script executed. It started with a T-Shift of -5 and in steps the T-Shift is decreased to final Shift of 0:
-![SlowStart](https://www.bartvandermark.nl/diversen/slowstart.JPG "Slowstart")
+![SlowStart](https://www.bartvandermark.nl/diversen/SlowStart.JPG "Slowstart")
