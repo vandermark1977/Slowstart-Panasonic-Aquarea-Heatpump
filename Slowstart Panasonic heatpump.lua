@@ -20,16 +20,16 @@ return {
         treshold = {initial = 20}
     },
     logging = {
-        level = domoticz.LOG_DEBUG, -- change to LOG_ERROR when OK
+        level = domoticz.LOG_DEBUG, -- change to LOG_ERROR when OK - was LOG_DEBUG
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
-        local heatshift = domoticz.devices(82)      -- Fill in IDX of the Pana [Z1_Heat_Request_Temp]
-        local target_temp = domoticz.devices(66)    -- Fill in IDX of the Pana [Main_Target_Temp]
-        local outlet_temp = domoticz.devices(65)    -- Fill in IDX of the Pana [Main_Outlet_Temp]
-        local CompressorFreq = domoticz.devices(49) -- Fill in IDX of the Pana [Compressor_Freq]
-        local Toggle = domoticz.devices(148)        -- Fill in IDX of On/Off switch you need to create from a dummy device. This on/of switch is only used for this script
-        local ShiftManual = domoticz.devices(149)   -- Fill in IDX of Your Manual TaShift [temperature thermostat]
+        local heatshift = domoticz.devices(82)      -- IDX of the Pana [Z1_Heat_Request_Temp]
+        local target_temp = domoticz.devices(66)    -- IDX of the Pana [Main_Target_Temp]
+        local outlet_temp = domoticz.devices(65)    -- IDX of the Pana [Main_Outlet_Temp]
+        local CompressorFreq = domoticz.devices(49) -- IDX of the Pana [Compressor_Freq]
+        local Toggle = domoticz.devices(148)        -- IDX of On/Off switch you need to create from a dummy device. This on/of switch is only used for this script
+        local ShiftManual = domoticz.devices(149)   -- IDX of Your Manual TaShift [devicetype: thermostat|setpoint]
 ----------------------------------------------
 -- Determine treshold for compressofrequency--
 -- To set change from state 3 --> 4         --
@@ -42,9 +42,9 @@ return {
         if (target_temp.temperature == 28 or target_temp.temperature == 29) then
             domoticz.data.treshold = 27 end
         if (target_temp.temperature == 30 or target_temp.temperature == 31) then
-            domoticz.data.treshold = 27 end
-        if (target_temp.temperature == 32 or target_temp.temperature == 33) then
-            domoticz.data.treshold = 27 end
+            domoticz.data.treshold = 28 end
+        if (target_temp.temperature >= 32) then
+            domoticz.data.treshold = 29 end
 ---------------------------
 -- Slowstart starts here --
 ---------------------------
@@ -69,10 +69,10 @@ return {
             domoticz.log('State: continuous status', domoticz.LOG_INFO)
             if((outlet_temp.temperature - target_temp.temperature) >= 0) then
                 correction = heatshift.setPoint + 1
-                domoticz.log('TaDoel is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature.. ': Continuous with correction is Shift+1: (' .. tostring(correction)..')', domoticz.LOG_INFO)
+                domoticz.log('Target-Temp is: '.. target_temp.temperature .. ' & Water-Temp is: '.. outlet_temp.temperature.. ': Continuous with correction is Shift+1: (' .. tostring(correction)..')', domoticz.LOG_INFO)
             else
                 correction = heatshift.setPoint
-                domoticz.log('Continuos without adjustment: TaTarget is: '.. target_temp.temperature .. ' & Ta is: '.. outlet_temp.temperature, domoticz.LOG_INFO)
+                domoticz.log('Continuos without adjustment: Target-Temp is: '.. target_temp.temperature .. ' & Water-Temp is: '.. outlet_temp.temperature, domoticz.LOG_INFO)
             end
         else
             domoticz.log('State: undefined', domoticz.LOG_INFO)
@@ -85,12 +85,16 @@ return {
         if correction < -5 then
             correction = -5 end
         if correction > ShiftManual.setPoint then 
-            domoticz.log('Correction ('.. tostring(correction)..') above ShiftManual (' .. ShiftManual.setPoint..'): Correction set to: ' .. ShiftManual.setPoint, domoticz.LOG_INFO)
+            domoticz.log('Correction ('.. tostring(correction)..') above current Manual Shift (' .. ShiftManual.setPoint..'): Correction set to: ' .. ShiftManual.setPoint, domoticz.LOG_INFO)
             correction = ShiftManual.setPoint end
         
         if heatshift.setPoint == correction then
             domoticz.log('No correction: Current Shift equals correction ('.. tostring(correction).. ')', domoticz.LOG_INFO) end
         
+        if (correction == 0) and (ShiftManual.setPoint > 0) then
+            correction = ShiftManual.setPoint
+            domoticz.log('Correction 0: Shift set tot ManualShift value ('.. tostring(correction).. ')', domoticz.LOG_INFO) end
+
         if (heatshift.setPoint ~= correction) and (Toggle.lastUpdate.minutesAgo >= 1) then
             domoticz.log('Correction needed and set to: ' .. tostring(correction), domoticz.LOG_INFO)
             heatshift.updateSetPoint(correction)
