@@ -12,13 +12,16 @@ DZvents Domoticz Script to manage the Panasonic (monobloc) heatpump to a slow an
 3. To provide a minimum time of 1 minute between the T-shifts caused by the script a dummy On/Off switch is needed. Make a new On/Off switch and in the script fill in the IDX in line 31.
 
 ## What does the script do?
-The script is triggered by the compressor frequency. Normally after a restart or defrost there is a significant difference between Ta and Ta-target. As a result the heatpump will start at high power to reach Ta-target in a short time. This script dynamically lowers the Ta-target so that the heatpump doesn't need to provide full power and has a longer&slower (and more profitable) run to a continuous state. When Ta reaches Ta-target the T-Shift is raised +1 just as long untill Ta reaches the normal Ta-target. In the process 4 'states' are defined by the script:
+The script is triggered by the compressor frequency. Normally after a restart or defrost there is often a significant difference between Ta and Ta-target. As a result the heatpump will start at high power to reach Ta-target in a short time. This script dynamically lowers the Ta-target in steps so that the heatpump doesn't need to provide full power and has a longer&slower (and more profitable) run to a continuous state. When Ta reaches Ta-target the T-Shift is raised +1 just as long untill Ta reaches the normal Ta-target. In the process 4 'states' are defined by the script:
 * 1: compressor off
 * 2: compressor startup
 * 3: compressor relaxing
 * 4: compressor continuous operation
 
 The steps from state 2 to state 3 and after that to to 4 are also determined by a treshold in the compressor frequency which is influenced by the Ta-target. See lines 33-47 in the script. It is necessay that you adjust these settings, based on your own situations and regular compressor frequencies!
+
+Below yu can see a graph of a startup after 6 hours of Off-state. Th purple blocks visualize the dynamic T-shifts the script executed. It started with a T-Shift of -5 and in steps the T-Shift is lowered to final Shift of 0:
+![SlowStart](https://www.bartvandermark.nl/diversen/slowstart.JPG "Slowstart")
 
 The script only functions when you have set up the Pana heatpump with a heat compensation curve for the Target Water Temperature Control. Manually Shifting with the Panasonic control unit doesnot work when the script is active. You need to use a new Shift device (devicetype: thermostat|setpoint) to be able to make manual shifts to the T-target water outlet temperature. See script for details.
 
