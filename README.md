@@ -21,7 +21,7 @@ Below you can see a graph of a startup after 6 hours of Off-state. The purple bl
 4. To provide a minimum time of 1 minute between the T-shifts caused by the script a dummy On/Off switch is needed. Make a new On/Off switch and in the script fill in the IDX in line 31.
 
 ## Short script explanation
-In the process 4 'states' are defined by the script:
+In the slowstart 4 'states' are defined by the script:
 * 1: compressor off
 * 2: compressor startup
 * 3: compressor relaxing
