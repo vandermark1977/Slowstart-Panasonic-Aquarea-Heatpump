@@ -32,7 +32,7 @@ return {
         local ShiftManual = domoticz.devices(149)   -- IDX of Your Manual TaShift [devicetype: thermostat|setpoint]
 -------------------------------------------------
 -- Determine treshold for compressor frequency --
--- To set change from state 3 --> 4            --
+-- To set change from state 2 -> 3 -> 4        --
 -- Adjust these to your own situation!!        --
 -------------------------------------------------
         if (target_temp.temperature == 26) then
