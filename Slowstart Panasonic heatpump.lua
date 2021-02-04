@@ -9,13 +9,13 @@ return {
         }
     },
     data = {
-        ---------------------------------------
-        -- compressor state
-        -- 1: compressor off
-        -- 2: compressor startup
-        -- 3: compressor relaxing
-        -- 4: compressor continuous operation
-        ---------------------------------------
+---------------------------------------
+-- compressor state
+-- 1: compressor off
+-- 2: compressor startup
+-- 3: compressor relaxing
+-- 4: compressor continuous operation
+---------------------------------------
         state = { initial = 1 },
         treshold = {initial = 20}
     },
