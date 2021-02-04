@@ -6,7 +6,7 @@ The script is triggered by the compressor frequency. Normally after a restart or
 
 This is especially usefull in situations where your heating system is slow and your house is well isolated. My house only has floorheating and is well isolated. The floorheating is a slow system. It is okay when the heatpump takes longer time to reach the Ta-target. Make your own judgement whether this is usefull in your situation.
 
-Below you can see a graph of a startup after 6 hours of Off-state. The purple blocks visualize the dynamic T-shifts the script executed. It started with a T-Shift of -5 and in steps the T-Shift is decreased to final Shift of 0:
+Below you can see a graph of a startup after 6 hours of Off-state. The purple blocks visualize the dynamic T-shifts the script executed. It started with a T-Shift of -5 and in steps the T-Shift is decreased to final Shift of 0. The total time in which the script decreased the Ta-Target was almost one hour:
 ![SlowStart](https://www.bartvandermark.nl/diversen/SlowStart.JPG "Slowstart")
 
 ## Definitions & abbreviations
