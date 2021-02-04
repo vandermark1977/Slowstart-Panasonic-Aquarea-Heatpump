@@ -6,6 +6,9 @@ The script is triggered by the compressor frequency. Normally after a restart or
 
 This is especially usefull in situations where your heating system is slow and your house is well isolated. My house only has floorheating and is well isolated. The floorheating is a slow system. It is okay when the heatpump takes longer time to reach the Ta-target. Make your own judgement whether this is usefull in your situation.
 
+Below you can see a graph of a startup after 6 hours of Off-state. The purple blocks visualize the dynamic T-shifts the script executed. It started with a T-Shift of -5 and in steps the T-Shift is decreased to final Shift of 0:
+![SlowStart](https://www.bartvandermark.nl/diversen/SlowStart.JPG "Slowstart")
+
 ## Definitions & abbreviations
 * T-Shift:    Temperature shift in the Outlet Water Temperature from the heatpump.
 * Ta:         Outlet Water Temperature
@@ -25,6 +28,3 @@ In the process 4 'states' are defined by the script:
 * 4: compressor continuous operation
 
 The steps from state 2 to state 3 and after that to to 4 are also determined by a treshold in the compressor frequency which is influenced by the Ta-target. See lines 33-47 in the script. It is necessay that you adjust these settings, based on your own situations and regular compressor frequencies!
-
-Below you can see a graph of a startup after 6 hours of Off-state. The purple blocks visualize the dynamic T-shifts the script executed. It started with a T-Shift of -5 and in steps the T-Shift is decreased to final Shift of 0:
-![SlowStart](https://www.bartvandermark.nl/diversen/SlowStart.JPG "Slowstart")
