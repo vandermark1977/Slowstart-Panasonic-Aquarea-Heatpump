@@ -4,7 +4,7 @@ DZvents Domoticz Script to manage the Panasonic (monobloc) heatpump to a slow an
 ## What does the script do?
 The script is triggered by the compressor frequency. Normally after a restart or defrost there is often a significant difference between Ta and Ta-target. As a result the heatpump will start at high power to reach Ta-target in a short time. This script dynamically decreases the Ta-target in steps so that the heatpump doesn't need to provide full power and has a longer&slower (and more profitable) run to a continuous state. When Ta reaches Ta-target the T-Shift is raised +1 just as long untill Ta reaches the normal Ta-target. As a result the time between defrosts will be longer and startups are executed at lower power. 
 
-This is especially usefull in situations where your heating system is slow and your house is well isolated. My house only has floorheating and is well isolated. The floorheating is a slow system. It is okay when the heatpump takes longer time to reach the Ta-target. Make your own judgement if this is usefull in your situation.
+This is especially usefull in situations where your heating system is slow and your house is well isolated. My house only has floorheating and is well isolated. The floorheating is a slow system. It is okay when the heatpump takes longer time to reach the Ta-target. Make your own judgement whether this is usefull in your situation.
 
 ## Definitions & abbreviations
 * T-Shift:    Temperature shift in the Outlet Water Temperature from the heatpump.
