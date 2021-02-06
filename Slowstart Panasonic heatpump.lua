@@ -1,5 +1,5 @@
 --  Slowstart script with adjustment to have Shift control of the target water outlet temperature. 
---  Make a Temperature device (thermostat with a setpoint) and fill the IDX in line 32.
+--  Make a Temperature device (thermostat with a setpoint) and fill the IDX in line 33.
 --  Use this device to make adjustments to the Shift of the Target temperature.
 
 return {
@@ -9,7 +9,7 @@ return {
         }
     },
     data = {
----------------------------------------
+--------------------------------------
 -- compressor state
 -- 1: compressor off
 -- 2: compressor startup
@@ -27,24 +27,26 @@ return {
         local heatshift = domoticz.devices(82)      -- IDX of the Pana [Z1_Heat_Request_Temp]
         local target_temp = domoticz.devices(66)    -- IDX of the Pana [Main_Target_Temp]
         local outlet_temp = domoticz.devices(65)    -- IDX of the Pana [Main_Outlet_Temp]
+        local TempOutside = 41                      -- IDX of outdoor temp sensor
         local CompressorFreq = domoticz.devices(49) -- IDX of the Pana [Compressor_Freq]
         local Toggle = domoticz.devices(148)        -- IDX of On/Off switch you need to create from a dummy device. This on/of switch is only used for this script
         local ShiftManual = domoticz.devices(149)   -- IDX of Your Manual TaShift [devicetype: thermostat|setpoint]
+        local outdoorTemp = tonumber(domoticz.devices(TempOutside).rawData[1])
 -------------------------------------------------
 -- Determine treshold for compressor frequency --
--- To set change from state 2 -> 3 -> 4        --
+-- To set change from state 3 --> 4            --
 -- Adjust these to your own situation!!        --
 -------------------------------------------------
-        if (target_temp.temperature == 26) then
+        if (outdoorTemp >= 3) then
             domoticz.data.treshold = 25 end
-        if (target_temp.temperature == 27) then
-            domoticz.data.treshold = 26 end
-        if (target_temp.temperature == 28 or target_temp.temperature == 29) then
+        if (outdoorTemp < 3 and outdoorTemp >= 1) then
             domoticz.data.treshold = 27 end
-        if (target_temp.temperature == 30 or target_temp.temperature == 31) then
-            domoticz.data.treshold = 28 end
-        if (target_temp.temperature >= 32) then
+        if (outdoorTemp < 1 and outdoorTemp > -2) then
             domoticz.data.treshold = 29 end
+        if (outdoorTemp <= -2 and outdoorTemp > -5) then
+            domoticz.data.treshold = 30 end
+        if (outdoorTemp <= -5) then
+            domoticz.data.treshold = 31 end
 ---------------------------
 -- Slowstart starts here --
 ---------------------------
@@ -82,8 +84,8 @@ return {
 -----------------------------------------------------------------------
 -- Correction is translated to Shift Target temperature water outlet --
 -----------------------------------------------------------------------
-        if correction < -5 then
-            correction = -5 end
+        if correction < -4 then
+            correction = -4 end
         if correction > ShiftManual.setPoint then 
             domoticz.log('Correction ('.. tostring(correction)..') above current Manual Shift (' .. ShiftManual.setPoint..'): Correction set to: ' .. ShiftManual.setPoint, domoticz.LOG_INFO)
             correction = ShiftManual.setPoint end
@@ -106,7 +108,8 @@ return {
 -- Final Log                         --
 ---------------------------------------
         else
-            domoticz.log('End script. Toggle last triggered: ' .. Toggle.lastUpdate.minutesAgo..' minutes ago. Treshold is: '..domoticz.data.treshold, domoticz.LOG_INFO)
+            domoticz.log('End script. Toggle last triggered: ' .. Toggle.lastUpdate.minutesAgo..' minutes ago. Treshold is: '
+            ..domoticz.data.treshold..' Buiten is het '..outdoorTemp..' oC', domoticz.LOG_INFO)
         end
     end
 }
