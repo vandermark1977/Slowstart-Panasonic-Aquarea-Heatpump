@@ -1,3 +1,7 @@
+--  Slowstart script with adjustment to have Direct control of the target water outlet temperature. 
+--  Make a Temperature device (thermostat with a setpoint) and fill the IDX in line 33.
+--  Use this device to make adjustments to the Target Water Outlet temperature.
+
 return {
     on = {
         devices = { 
@@ -20,7 +24,7 @@ return {
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
-        local TaDirect = domoticz.devices(82)      -- IDX of the Pana [Z1_Heat_Request_Temp]
+        local TaDirect = domoticz.devices(82)       -- IDX of the Pana [Z1_Heat_Request_Temp]
         local target_temp = domoticz.devices(66)    -- IDX of the Pana [Main_Target_Temp]
         local outlet_temp = domoticz.devices(65)    -- IDX of the Pana [Main_Outlet_Temp]
         local TempOutside = 41                      -- IDX of outside temp sensor
