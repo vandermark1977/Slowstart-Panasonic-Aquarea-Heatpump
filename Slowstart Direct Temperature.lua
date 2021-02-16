@@ -16,11 +16,11 @@ return {
 -- 3: compressor relaxing
 -- 4: compressor continuous operation
 ---------------------------------------
-        state = { initial = 0 },
+        state = { initial = 4 },
         treshold = {initial = 20}
     },
     logging = {
-        level = domoticz.LOG_DEBUG, -- change to LOG_ERROR when OK - was LOG_DEBUG
+        level = domoticz.LOG_ERROR, -- change to LOG_ERROR when OK - was LOG_DEBUG
         marker = scriptVar,
         },
     execute = function(domoticz, triggeredItem)
@@ -30,8 +30,8 @@ return {
         local TempOutside = 41                      -- IDX of outside temp sensor
         local CompressorFreq = domoticz.devices(49) -- IDX of the Pana [Compressor_Freq]
         local Toggle = domoticz.devices(148)        -- IDX of On/Off switch you need to create from a dummy device. This on/of switch is only used for this script
-        local TaManual = domoticz.devices(150)      -- IDX with which you set the target water temperature
-        local outdoorTemp = tonumber(domoticz.devices(TempOutside).rawData[1])
+        local TaManual = domoticz.devices(150)      -- IDX with which you set the target water temperature. Works both for Shift in case of Heat Curve and for direct temperature control
+        local outdoorTemp = tonumber(domoticz.devices(TempOutside).rawData[1])  -- Number of outside temperature
 -------------------------------------------------
 -- Determine treshold for compressor frequency --
 -- To set change from state 3 --> 4            --
@@ -42,15 +42,15 @@ return {
         if (outdoorTemp < 3 and outdoorTemp >= 1) then
             domoticz.data.treshold = 27 end
         if (outdoorTemp < 1 and outdoorTemp > -2) then
-            domoticz.data.treshold = 37 end
+            domoticz.data.treshold = 32 end
         if (outdoorTemp <= -2 and outdoorTemp > -5) then
-            domoticz.data.treshold = 40 end
+            domoticz.data.treshold = 38 end
         if (outdoorTemp <= -5 and outdoorTemp >-7) then
-            domoticz.data.treshold = 44 end
+            domoticz.data.treshold = 41 end
         if (outdoorTemp <= -7 and outdoorTemp >-9) then
-            domoticz.data.treshold = 46 end
+            domoticz.data.treshold = 44 end
         if (outdoorTemp <= -9 and outdoorTemp >-11) then
-            domoticz.data.treshold = 47 end
+            domoticz.data.treshold = 46 end
         if (outdoorTemp <= -11) then
             domoticz.data.treshold = 48 end
 ---------------------------
@@ -59,7 +59,7 @@ return {
         if(CompressorFreq.sValue == "0") then
             domoticz.log('State: compressor off', domoticz.LOG_INFO)
             domoticz.data.state = 1
-            correction = 0
+            correction = TaManual.setPoint
         elseif(domoticz.data.state == 1 or domoticz.data.state == 2) then
             domoticz.log('State: compressor startup', domoticz.LOG_INFO)
             domoticz.data.state = 2
@@ -80,7 +80,7 @@ return {
                 domoticz.log('Target-Temp is: '.. target_temp.temperature .. ' & Water-Temp is: '.. outlet_temp.temperature.. ': Continuous with correction is Ta+1: (' .. tostring(correction)..')', domoticz.LOG_INFO)
             else
                 correction = TaDirect.setPoint
-                domoticz.log('Continuos without adjustment: Target-Temp is: '.. target_temp.temperature .. ' & Water-Temp is: '.. outlet_temp.temperature, domoticz.LOG_INFO)
+                domoticz.log('Continuous without adjustment: Target-Temp is: '.. target_temp.temperature .. ' & Water-Temp is: '.. outlet_temp.temperature, domoticz.LOG_INFO)
             end
         else
             domoticz.log('State: undefined', domoticz.LOG_INFO)
@@ -91,7 +91,7 @@ return {
 -- Correction is translated to Shift Target temperature water outlet --
 -----------------------------------------------------------------------
         if correction < (TaManual.setPoint - 4) then
-            correction = (TaManual.setPoint -4) end
+            correction = (TaManual.setPoint - 4) end
         if correction > TaManual.setPoint then 
             domoticz.log('Correction ('.. tostring(correction)..') above current Ta target (' .. TaManual.setPoint..'): Ta set to: ' .. TaManual.setPoint, domoticz.LOG_INFO)
             correction = TaManual.setPoint end
