@@ -16,8 +16,8 @@ Below you can see a graph of a startup after 6 hours of Off-state. The purple bl
 
 ## Prerequisites
 1. Script works in combination with the [Domoticz HeishamonMQTT plugin](https://github.com/MarFanNL/HeishamonMQTT/tree/main) and the [Heishamon communication PCB](https://www.tindie.com/stores/thehognl/)
-2. There are two versions of the script, depending on the setup to control the water outlet temperature: One for the setup with a Heat Compensation Curve and one for the setup with direct temperature control.
-3. Because of the script, the normal T-shift no longer works. The script has a work-around to provide a working T-Shift. In Domoticz you need to make a new device: Thermostat|Setpoint. In the script you need to fill in the IDX of this device in line 32
+2. The script works for two setups: The setup with a Heat Compensation Curve and the setup with direct temperature control.
+3. Because of the script, the normal T-shift or Ta setting no longer works. The script has a work-around to provide a working T-Shift of Ta setting. In Domoticz you need to make a new device: Thermostat|Setpoint. In the script you need to fill in the IDX of this device in line 32
 4. To provide a minimum time of 1 minute between the T-shifts caused by the script a dummy On/Off switch is needed. Make a new On/Off switch and in the script fill in the IDX in line 31.
 
 ## Short script explanation
