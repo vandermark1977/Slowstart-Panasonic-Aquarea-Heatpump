@@ -27,4 +27,4 @@ In the slowstart 4 'states' are defined by the script:
 * 3: compressor relaxing
 * 4: compressor continuous operation
 
-The steps from state 2 to state 3 and after that to to 4 are also determined by a treshold in the compressor frequency which is influenced by the Ta-target. See lines 33-47 in the script. It is necessay that you adjust these settings, based on your own situations and regular compressor frequencies!
+The steps from state 2 to state 3 and after that to to 4 are also determined by a treshold in the compressor frequency which is influenced by the Outside temperature. See lines 33-47 in the script. It is necessay that you adjust these settings, based on your own situations and regular compressor frequencies!
